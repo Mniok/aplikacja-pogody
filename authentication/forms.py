@@ -53,5 +53,5 @@ class cityIdTestForm(forms.Form):
     
     class Meta:
         #model = ObservedCity
-        fields = ['city_id',]
+        fields = ['city_id']
 

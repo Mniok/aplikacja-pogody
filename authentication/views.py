@@ -13,11 +13,11 @@ def home(request):
         if form.is_valid():
             obsCity = ObservedCity(city_id=1,
                                    widget_nr=1,
-                                   user_id=request.user) #not user.id ! must be AuthUser instance
+                                   user_id=request.user.id) #not user.id ! must be AuthUser instance
             obsCity.save()
             return redirect('/home')
-        else:
-            form = cityIdTestForm()
+    else:
+        form = cityIdTestForm()
         
     return render(request, 'home.html', {"form":form})
 

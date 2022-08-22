@@ -28,7 +28,8 @@ from django.contrib.auth.models import User
 class ObservedCity(models.Model):
     city_id = models.IntegerField()
     widget_nr = models.IntegerField()
-    user_id = models.ForeignKey(User, models.DO_NOTHING)
+    user = models.ForeignKey(User, models.DO_NOTHING)
+    # ! not user_id !   django automatically appends _id to key, resulting in user_id_id
     
     class Meta:
         managed = False
