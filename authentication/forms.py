@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import ObservedCity
 from django.utils.safestring import mark_safe
+from .services import COUNTRIES_CHOICE
 
 
 class RegisterForm(UserCreationForm):
@@ -49,9 +50,13 @@ class RegisterForm(UserCreationForm):
 
 
 class cityIdTestForm(forms.Form):
-    city_id = forms.CharField(label="Id miasta", required=True)
+    #print(countries)
+    country = forms.ChoiceField(label="Kraj",
+                                choices = COUNTRIES_CHOICE,
+                                required=False)
+    city_id = forms.IntegerField(label="Id miasta", required=True)
     
     class Meta:
         #model = ObservedCity
-        fields = ['city_id']
+        fields = ["country", "city_id"]
 
