@@ -3,5 +3,10 @@ przed uruchomieniem programu należy zainstalować kilka rzeczy z wiersza polece
 1.pip install django
 2.pip install install crispy-bootstrap5
 3.pip install psycopg2
+4.npm install -g typescript
+
+przed uruchomieniem programu należy uruchomić następujące komendy:
+1. tsc
+2. python manage.py collectstatic
 
 program uruchamia się komendą python manage.py runserver

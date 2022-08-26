@@ -54,6 +54,7 @@ class cityIdTestForm(forms.Form):
     country = forms.ChoiceField(label="Kraj",
                                 choices = COUNTRIES_CHOICE,
                                 required=False)
+    #print(this)
     city_id = forms.IntegerField(label="Id miasta", required=True)
     
     class Meta:

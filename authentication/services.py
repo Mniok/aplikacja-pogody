@@ -18,7 +18,7 @@ if ('' in countries): #exclude continents
     #ogólnie ten json zawiera nie tylko miasta, ale np. województwa i powiaty
 countries = list(countries)
 countries.sort()
-#print(countries) #tests
+##print(countries) #tests
 
 
 
@@ -30,7 +30,7 @@ for i in countries:
 if (continents): #re-include continents
     COUNTRIES_CHOICE.append(("CONTINENTS", "Średnie dla kontynentów"))
 COUNTRIES_CHOICE.append(("ALL", "Wszystkie kraje"))
-print(COUNTRIES_CHOICE) #test
+##print(COUNTRIES_CHOICE) #test
 
 
 
