@@ -10,7 +10,7 @@ app.component('weather-widget', {
     },
     template: 
     /*html*/
-    `<div v-on:click="selectForGraph">
+    `<div class="d-flex" v-on:click="selectForGraph">
       <div :id="containerId" :key="cityId"></div>
     </div>`,
     data() {

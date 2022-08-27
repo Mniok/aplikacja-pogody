@@ -7,8 +7,8 @@
 <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
 
 <div id="app" class="w-100 h-100 d-flex flex-row justify-content-between">
-	<div class="left-tab d-flex flex-row flex-column">
-		<div class="widget-container d-flex flex-column">
+	<div class="left-tab d-flex widget-container">
+		<div class="d-flex flex-wrap">
 			{% for city in cities %}
 			<weather-widget :city-id="{{city}}" @selected="showGraph"></weather-widget>
 			{% endfor %}

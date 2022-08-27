@@ -27,7 +27,7 @@ def home(request):
         cities = ObservedCity.objects.filter(user_id=request.user.id) \
         .order_by('widget_nr') \
         .values_list('city_id', flat=True).distinct() #prevents showing duplicates from being shown
-        print(cities)
+        #print(cities)
         
     return render(request, 'home.html', {"form":form, "cities":cities})
 
