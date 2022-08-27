@@ -19,8 +19,9 @@ def home(request):
             return redirect('/home')
     else:
         form = cityIdTestForm()
+        cities = ObservedCity.objects.filter(user_id=request.user.id)
         
-    return render(request, 'home.html', {"form":form})
+    return render(request, 'home.html', {"form":form, "cities":cities})
 
 
 
