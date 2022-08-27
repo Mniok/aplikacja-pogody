@@ -15,12 +15,14 @@ def home(request):
             obsCity = ObservedCity(city_id=form.cleaned_data['city_id'],
                                    widget_nr=1,
                                    user_id=request.user.id) #not user.id ! must be AuthUser instance
-            obsCity.save()
+            duplicates = ObservedCity.objects.filter(user_id=obsCity.user_id, city_id=obsCity.city_id)
+            if (len(duplicates) == 0): #prevents saving duplicates
+                obsCity.save()
             return redirect('/home')
     else:
         form = cityIdTestForm()
         cities = ObservedCity.objects.filter(user_id=request.user.id)
-        cities = cities.values_list('city_id', flat=True).distinct() #prevents duplicates from being shown
+        cities = cities.values_list('city_id', flat=True).distinct() #prevents showing duplicates from being shown
         
     return render(request, 'home.html', {"form":form, "cities":cities})
 
