@@ -20,6 +20,7 @@ def home(request):
     else:
         form = cityIdTestForm()
         cities = ObservedCity.objects.filter(user_id=request.user.id)
+        cities = cities.values_list('city_id', flat=True).distinct() #prevents duplicates from being shown
         
     return render(request, 'home.html', {"form":form, "cities":cities})
 

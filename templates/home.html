@@ -10,7 +10,7 @@
 	<div class="left-tab d-flex flex-row flex-column">
 		<div class="widget-container d-flex flex-column">
 			{% for city in cities %}
-			<weather-widget :city-id="{{city.city_id}}" @selected="showGraph"></weather-widget>
+			<weather-widget :city-id="{{city}}" @selected="showGraph"></weather-widget>
 			{% endfor %}
 		</div>
 	</div>
