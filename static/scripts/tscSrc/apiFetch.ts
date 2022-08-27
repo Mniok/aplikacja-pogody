@@ -1,3 +1,4 @@
+"use strict";
 //var v: integer = 1 //typescript type declaration btw
 
 

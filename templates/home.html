@@ -8,7 +8,9 @@
 
 <div id="app" class="w-100 h-100 d-flex flex-row justify-content-between">
 	<div class="left-tab d-flex flex-row flex-column">
-		leftfield
+		<div class="widget-container">
+			<weather-widget :city-id="12345678" @selected="showGraph"></weather-widget>
+		</div>
 	</div>
 
 	<div class="right-tab fixed-right">

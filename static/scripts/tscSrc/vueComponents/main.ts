@@ -7,8 +7,8 @@ const app = Vue.createApp({
     },
 
     methods: {
-        showDetailsGraph(cityId: number) {
-            return 0;
+        showGraph(cityId: number) {
+            console.log(cityId)
         }
     },
 

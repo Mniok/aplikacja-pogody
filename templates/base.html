@@ -13,7 +13,7 @@
 	<title>{% block title %}Aplikacja Pogodowa{% endblock %}</title>
 </head>
 <body>
-	<div class="site-container">
+	<div id="site-container" class="site-container">
 		<!-- top - navbar -->
 		<nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container-fluid">
@@ -62,10 +62,13 @@
 			footHeight = document.getElementById("footer").clientHeight;
 		
 			document.getElementById("app-container").style.top = navHeight +'px';
-			document.getElementById("app-container").style.bottom = footHeight +'px';
+			//document.getElementById("app-container").style.bottom = footHeight +'px';
+			
+			calcH = document.getElementById("site-container").clientHeight;
+			document.getElementById("app-container").style.height = (calcH - navHeight - footHeight) +'px';
 		}
 		
-		setInterval(setAppContainerHeight);
+		resizeHandle = setInterval(setAppContainerHeight);
 	</script>
 </body>
 </html>

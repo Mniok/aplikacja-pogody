@@ -7,12 +7,12 @@ body {
 }
 
 .site-container {
-	position: absolute !important;
+	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
-	height: 100% !important;
+	height: 100%;
 }
 
 .right-tab {
@@ -24,4 +24,22 @@ body {
 .left-tab {
 	height: 100%;
 	width: calc(100% - var(--right-tab-width));
+}
+
+.widget-container {
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
+
+.widget-block {
+	margin: 10px 50px;
+	height: 20%;
+	border-radius: 20% 20%;
+}
+
+.weather-widget {
+	background-color: aquamarine;
+	border: 5px solid aqua;
+
 }

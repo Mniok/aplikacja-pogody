@@ -1,4 +1,3 @@
-"use strict";
 const app = Vue.createApp({
     data() {
         return {
@@ -7,8 +6,8 @@ const app = Vue.createApp({
         };
     },
     methods: {
-        showDetailsGraph(cityId) {
-            return 0;
+        showGraph(cityId) {
+            console.log(cityId);
         }
     },
     computed: {

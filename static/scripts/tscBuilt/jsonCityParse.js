@@ -1,4 +1,5 @@
 // @ts-check
+"use strict";
 // console snippets:
 // curCountry = document.getElementById("id_country").value
 // anyCountry = document.getElementById("id_country")[1].value
