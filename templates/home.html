@@ -1,18 +1,42 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} <!-- base imports Bootstrap and links stylesheets -->
 {% block title %}Strona Główna{% endblock %}
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
-<div class="container mt-auto">
-	<div class="card border-0 shadow my-5" style="background-color: #F3C44Cbb">
-		<div class="card-body p-5">
-			<form method="post">
-				{% csrf_token %}
-				{{form|crispy}}
-				<button type="submit" class="btn btn-success">Dodaj</button>
-			</form>
-		</div>
+<!-- Import Vue.js -->
+<script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
+
+<div id="app" class="w-100 h-100 d-flex flex-row justify-content-between">
+	<div class="left-tab d-flex flex-row flex-column">
+		leftfield
+	</div>
+
+	<div class="right-tab fixed-right">
+		<form method="post">
+			{% csrf_token %}
+			{{form|crispy}}
+			<button type="submit" class="btn btn-success">Dodaj</button>
+		</form>
 	</div>
 </div>
-<script type="module" src="{% static 'scripts/tscBuilt/jsonCityParse.js' %}"></script>
+
+
+
+<!-- Import App -->
+<script src="{% static '/scripts/tscBuilt/vueComponents/main.js' %}"></script>
+
+<!-- Import Components -->
+<script src="{% static '/scripts/tscBuilt/vueComponents/WeatherWidget.js' %}"></script>
+<script src="{% static '/scripts/tscBuilt/vueComponents/WeatherDetailsGraph.js' %}"></script>
+<script src="{% static '/scripts/tscBuilt/vueComponents/AddCountryWidget.js' %}"></script>
+<script src="{% static '/scripts/tscBuilt/vueComponents/AddCountryForm.js' %}"></script>
+
+
+<!-- Mount App -->
+<script>
+	const mountedApp = app.mount('#app')
+</script>
+
+<script type="module" src="{% static '/scripts/tscBuilt/jsonCityParse.js' %}"></script>
+
 {% endblock %}

@@ -1,0 +1,27 @@
+body {
+  background-color: #f2f2f2;
+}
+
+:root {
+	--right-tab-width: 330px;
+}
+
+.site-container {
+	position: absolute !important;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 100% !important;
+}
+
+.right-tab {
+	background-color: #a2a2f2;
+	height: 100%;
+	width: var(--right-tab-width);
+}
+
+.left-tab {
+	height: 100%;
+	width: calc(100% - var(--right-tab-width));
+}

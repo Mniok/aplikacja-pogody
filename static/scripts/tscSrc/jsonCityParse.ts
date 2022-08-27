@@ -8,7 +8,7 @@
 // document.getElementById("id_country").innerHTML += '<option value="CFG">CFG</option>' //add country to countries selector
 // selectedCity - document.getElementById("id_city_id").value //to be changed to cityName once selector can be populated
 
-//var num : number = 1;
+var num : number = 1;
 //fr = new FileReader();
 //jsonfile = fr.readAsText("city_list_lite_for_tests.json")
 
@@ -20,3 +20,6 @@ import citiesJSON from './city_list_lite_for_tests.json' assert {type: 'json'};
 console.log(citiesJSON);
 //import require as require from './require.mjs';
 //require('./city_list_lite_for_tests.json');
+
+
+export { num, citiesJSON }
