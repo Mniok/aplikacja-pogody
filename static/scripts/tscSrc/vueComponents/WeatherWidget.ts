@@ -3,15 +3,15 @@
 
 app.component('weather-widget', {
     props: {
-      "city-id": {
+      cityId: {
         type: Number,
         required: true
       }
     },
     template: 
     /*html*/
-    `<div class="container-flex widget-block weather-widget" v-on:click="selectForGraph">
-        <h1>{{cityId}}</h1>
+    `<div v-on:click="selectForGraph">
+      <div :id="containerId" :key="cityId"></div>
     </div>`,
     data() {
       return {
@@ -24,18 +24,52 @@ app.component('weather-widget', {
           highlighted: false
       }
     },
+
     methods: {
         update() {
-            //this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
+          window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
+        
+          //init parameters for API call
+          window.myWidgetParam.push({
+            id: 5, //widget type
+            cityid: this.cityId,
+            appid: 'c2eb1330d5a3ce1a68cb382df5091a4b',
+            units: 'metric',
+            lang: 'pl',
+            containerid: this.containerId,
+          });
+      
+          //API call is made through widget generator
+          (function(cityId: number) {
+            var script = document.createElement('script');
+            script.async = true;
+            script.charset = "utf-8";
+            script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(script, s);
+            
+            //console.log("widget for city with id " + this.cityId.toString() + " updated."); //out of scope, function canot access this.cityId
+            console.log("widget for city with id " + cityId.toString() + " updated.");
+          })(this.cityId);
         },
+
         selectForGraph() {
             this.$emit('selected', this.cityId)
         },
+    },
+
+    mounted() {
+      console.log("weather-widget for city id " + this.cityId.toString() + " mounted.")
+      this.update();
+      //lifecycle hook
     },
     
     computed: {
         iconPath() {
             return 0 //this.weather.icon
+        },
+        containerId() {
+            return 'openweathermap-widget-5-' + this.cityId.toString();
         }
     }
   })
