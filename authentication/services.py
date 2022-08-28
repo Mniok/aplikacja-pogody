@@ -33,14 +33,42 @@ COUNTRIES_CHOICE.append(("ALL", "Wszystkie kraje"))
 ##print(COUNTRIES_CHOICE) #test
 
 
-ALL_CITIES = []
+ALL_CITIES_PRE_SORT = []
 for i in cityData:
-    #as array of arrays:
-    ALL_CITIES.append([ 
-            i['id'],
+    #as array of tuples, with values ordered by sorting priority:
+    ALL_CITIES_PRE_SORT.append(( 
             i['name'],
-            i['country']
+            i['country'],
+            i['id']
+    ))
+
+ALL_IDS = []
+for i in ALL_CITIES_PRE_SORT:
+    #as array of arrays:
+    ALL_IDS.append(i[2])
+
+ALL_CITIES_PRE_SORT = sorted(ALL_CITIES_PRE_SORT)
+
+ALL_CITIES = []
+for i in ALL_CITIES_PRE_SORT:
+    #as array of arrays, possible to {{inject}} into js
+    ALL_CITIES.append([
+            i[2],   #['id']
+            i[0],   #['name']
+            i[1]    #['country']
     ])
+
+
+# _ _ _ archive
+
+#ALL_CITIES = []
+#for i in cityData:
+    #as array of arrays:
+    #ALL_CITIES.append([ 
+    #        i['id'],
+    #        i['name'],
+    #        i['country']
+    #])
     
     #as array of dicts:
     #dict = {       ##too large when read as js variable, process takes up hundreds of MB
@@ -54,11 +82,11 @@ for i in cityData:
     #ALL_CITIES.append(i['name'])
 #ALL_CITIES = tuple(ALL_CITIES)
 
+#ALL_IDS = []
+#for i in ALL_CITIES:
+#    #as array of arrays:
+#    ALL_IDS.append(i[0])
 
-ALL_IDS = []
-for i in ALL_CITIES:
-    #as array of arrays:
-    ALL_IDS.append(i[0])
 
 
 
