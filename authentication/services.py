@@ -55,6 +55,10 @@ for i in cityData:
 #ALL_CITIES = tuple(ALL_CITIES)
 
 
+ALL_IDS = []
+for i in ALL_CITIES:
+    #as array of arrays:
+    ALL_IDS.append(i[0])
 
 
 

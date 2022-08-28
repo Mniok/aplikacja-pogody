@@ -4,7 +4,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import ObservedCity
 from django.utils.safestring import mark_safe
-from .services import COUNTRIES_CHOICE
+from .services import COUNTRIES_CHOICE, ALL_IDS
+
+from django.forms import ValidationError
 
 
 class RegisterForm(UserCreationForm):
@@ -51,12 +53,51 @@ class RegisterForm(UserCreationForm):
 
 class cityIdTestForm(forms.Form):
     #print(countries)
-    country = forms.ChoiceField(label="Kraj",
+    country = forms.ChoiceField(label="Kraj:",
                                 choices = COUNTRIES_CHOICE,
+                                initial='PL',
                                 required=False)
     #print(this)
-    city_id = forms.IntegerField(label="Id miasta", required=True)
+    #city_id = forms.IntegerField(label="Id miasta", required=True)
     #city_name = forms.CharField(label="Nazwa miasta:", required=True)
+
+    city_id = forms.ChoiceField(label="Miasto:",
+                                choices = (
+                                    ("1", "1"),
+                                    ("2", "2")
+                                ), #required to render, replaced at runtime according to selected country
+                                required=True)
+
+    def customClean(self):
+        #used in place of form.is_valid(),
+        #because form.is_valid calls built-in validator for city_id (ChoiceField),
+        #which raises errors when the value submitted is not in the "choices" field.
+
+        #the dataset is too large to fit it in a select field in it's entirety,
+        #and crashes the site if passed to the choices field,
+        #so the contents of the select field are changed at runtime
+        #in <add-country-form> widget (AddCountryForm.ts).
+
+        #this method makes it possible to retrieve data submitted through the form.
+        
+        ##cleaned_data = self.cleaned_data
+        ##print("clean() city_id: " + str(self.city_id))
+        custom_cleaned_data = {
+            "country": self.data['country'],
+            "city_id": self.data['city_id']
+        }
+        print("custom_cleaned_data: " + str(custom_cleaned_data))
+        return custom_cleaned_data
+
+    def clean_city_id(self):
+        city_id = self.cleaned_data['city_id']
+
+
+        if (city_id not in ALL_IDS):
+            raise ValidationError("Wystąpił błąd. Nie znaleziono takiego miasta.")
+
+        return city_id
+    
     
     class Meta:
         #model = ObservedCity

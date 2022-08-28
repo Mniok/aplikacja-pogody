@@ -10,12 +10,15 @@ from .services import findIdOfCity, ALL_CITIES
 @login_required(login_url='/login')
 def home(request):
     if request.method == 'POST':
+        #cityIdTestForm.errors['city_id'] = cityIdTestForm.['city_id'].error_class()
         form = cityIdTestForm(request.POST)
-        if form.is_valid():
-            cityName = form.cleaned_data['city_name']
-            cityId = findIdOfCity()
+        if(True): #if (form.is_valid()):
+            cleaned = form.customClean()
+            #cityName = form.cleaned_data['city_id']
+            #cityId = findIdOfCity()
+            cityId = cleaned['city_id']
             
-            obsCity = ObservedCity(city_id=form.cleaned_data['city_name'],
+            obsCity = ObservedCity(city_id=cityId,
                                    widget_nr=1,
                                    user_id=request.user.id) #not user.id ! must be AuthUser instance
             duplicates = ObservedCity.objects.filter(user_id=obsCity.user_id, city_id=obsCity.city_id)
@@ -27,10 +30,11 @@ def home(request):
             return redirect('/home')
     else:
         form = cityIdTestForm()
-        cities = ObservedCity.objects.filter(user_id=request.user.id) \
-        .order_by('widget_nr') \
-        .values_list('city_id', flat=True).distinct() #prevents showing duplicates from being shown
-        #print(cities)
+
+    cities = ObservedCity.objects.filter(user_id=request.user.id) \
+    .order_by('widget_nr') \
+    .values_list('city_id', flat=True).distinct() #prevents showing duplicates from being shown
+    #print(cities)
         
     return render(request, 'home.html', {"form": form,
                                          "cities": cities,

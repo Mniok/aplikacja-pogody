@@ -15,13 +15,13 @@ body {
 	height: 100%;
 }
 
-.right-tab {
+#right-tab {
 	background-color: #a2a2f2;
 	height: 100%;
 	width: var(--right-tab-width);
 }
 
-.left-tab {
+#left-tab {
 	height: 100%;
 	width: calc(100% - var(--right-tab-width));
 }
