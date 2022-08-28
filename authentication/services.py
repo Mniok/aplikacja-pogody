@@ -28,9 +28,32 @@ for i in countries:
     #COUNTRIES_CHOICE.append( (i, mark_safe(flag + "fl" + i)) )
     COUNTRIES_CHOICE.append((i, i))
 if (continents): #re-include continents
-    COUNTRIES_CHOICE.append(("CONTINENTS", "Średnie dla kontynentów"))
+    COUNTRIES_CHOICE.append(("", "Średnie dla kontynentów"))
 COUNTRIES_CHOICE.append(("ALL", "Wszystkie kraje"))
 ##print(COUNTRIES_CHOICE) #test
+
+
+ALL_CITIES = []
+for i in cityData:
+    #as array of arrays:
+    ALL_CITIES.append([ 
+            i['id'],
+            i['name'],
+            i['country']
+    ])
+    
+    #as array of dicts:
+    #dict = {       ##too large when read as js variable, process takes up hundreds of MB
+    #    "id": i['id'],
+    #    "name": i['name'],
+    #    "country": i['country']
+    #}
+    #ALL_CITIES.append(dict)
+
+    #as array:
+    #ALL_CITIES.append(i['name'])
+#ALL_CITIES = tuple(ALL_CITIES)
+
 
 
 
@@ -43,7 +66,7 @@ def findIdOfCity(cityName):
             break
 
     return cityId
-    # id -1 ==> invalid city name passed (not found in json). should probably make it an exception later
+    # id -1 ==> invalid city name passed (not found in json).
 
 def findCitiesInCountry(country):
     cities = []

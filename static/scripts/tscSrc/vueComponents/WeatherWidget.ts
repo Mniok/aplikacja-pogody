@@ -10,7 +10,7 @@ app.component('weather-widget', {
     },
     template: 
     /*html*/
-    `<div class="d-flex" @:click="selectForGraph">
+    `<div class="d-flex" @click="selectForGraph">
       <div class="widget-margins widget-size">
         <div :id="containerId"></div>
 
@@ -56,8 +56,8 @@ app.component('weather-widget', {
 
             s.parentNode.insertBefore(script, s);
 
-            var loader = document.getElementById(loaderId);
-            console.log(loader);
+            //var loader = document.getElementById(loaderId);
+            //console.log(loader);
             //loader.parentElement.removeChild(loader); //get rid of spinner
             //removing loader here would remove it before widget loads, instead it's hidden behind it
 
@@ -72,7 +72,7 @@ app.component('weather-widget', {
     },
 
     mounted() {
-      console.log("weather-widget for city id " + this.cityId.toString() + " mounted.")
+      //console.log("weather-widget for city id " + this.cityId.toString() + " mounted.")
       this.update();
       //lifecycle hook
     },

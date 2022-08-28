@@ -4,7 +4,7 @@
 app.component('add-country-widget', {
     template: 
     /*html*/
-    `<div class="d-flex" @:click="add-city">
+    `<div class="d-flex" @click="add-city">
       <div class="widget-margins widget-size">
         <div id="add-widget-container">
             <div class="d-flex justify-content-center align-items-center h-100 w-100 bg-light bg-gradient rounded">

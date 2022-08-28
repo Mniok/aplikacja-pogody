@@ -3,7 +3,7 @@ from . forms import RegisterForm, cityIdTestForm
 from . models import ObservedCity
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-from .services import findIdOfCity
+from .services import findIdOfCity, ALL_CITIES
 
 
 # Create your views here.
@@ -12,7 +12,10 @@ def home(request):
     if request.method == 'POST':
         form = cityIdTestForm(request.POST)
         if form.is_valid():
-            obsCity = ObservedCity(city_id=form.cleaned_data['city_id'],
+            cityName = form.cleaned_data['city_name']
+            cityId = findIdOfCity()
+            
+            obsCity = ObservedCity(city_id=form.cleaned_data['city_name'],
                                    widget_nr=1,
                                    user_id=request.user.id) #not user.id ! must be AuthUser instance
             duplicates = ObservedCity.objects.filter(user_id=obsCity.user_id, city_id=obsCity.city_id)
@@ -29,7 +32,10 @@ def home(request):
         .values_list('city_id', flat=True).distinct() #prevents showing duplicates from being shown
         #print(cities)
         
-    return render(request, 'home.html', {"form":form, "cities":cities})
+    return render(request, 'home.html', {"form": form,
+                                         "cities": cities,
+                                         "allcities": ALL_CITIES
+                                         })
 
 
 

@@ -43,7 +43,7 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "email", "email2", "password1", "password2", "tos_accepted"]
-#na ten moment jeszcze 4 ValidationErrory do haseł są dalej po angielsku!
+
 
 
 
@@ -56,8 +56,10 @@ class cityIdTestForm(forms.Form):
                                 required=False)
     #print(this)
     city_id = forms.IntegerField(label="Id miasta", required=True)
+    #city_name = forms.CharField(label="Nazwa miasta:", required=True)
     
     class Meta:
         #model = ObservedCity
         fields = ["country", "city_id"]
+        #fields = ["city_name"]
 

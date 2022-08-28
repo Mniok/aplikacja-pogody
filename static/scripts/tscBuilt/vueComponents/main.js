@@ -8,6 +8,9 @@ const app = Vue.createApp({
     methods: {
         showGraph(cityId) {
             console.log(cityId);
+        },
+        newCityForm() {
+            console.log("open new city form");
         }
     },
     computed: {

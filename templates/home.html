@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
+
 <!-- Import Vue.js -->
 <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
 
@@ -12,7 +13,7 @@
 			{% for city in cities %}
 			<weather-widget :city-id="{{city}}" @selected="showGraph"></weather-widget>
 			{% endfor %}
-			<add-country-widget></add-country-widget>
+			<add-country-widget @add-city="newCityForm"></add-country-widget>
 		</div>
 	</div>
 
@@ -42,6 +43,17 @@
 	const mountedApp = app.mount('#app')
 </script>
 
-<script type="module" src="{% static '/scripts/tscBuilt/jsonCityParse.js' %}"></script>
+<p>{{allcities|safe}}</p>
+
+<script>
+	var tt = [];
+	async function load() {
+		tt = {{allcities|safe}};
+		console.log(tt);
+	};
+	load()
+</script>
+
+
 
 {% endblock %}
