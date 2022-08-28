@@ -53,6 +53,7 @@ app.component('weather-widget', {
                 var loader = document.getElementById(loaderId);
                 console.log(loader);
                 //loader.parentElement.removeChild(loader); //get rid of spinner
+                //removing loader here would remove it before widget loads, instead it's hidden behind it
                 //console.log("widget for city with id " + this.cityId.toString() + " updated."); //out of scope, function canot access this.cityId
                 console.log("widget for city with id " + cityId.toString() + " updated.");
             })(this.cityId, this.loaderId);

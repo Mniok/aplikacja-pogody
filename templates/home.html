@@ -12,6 +12,7 @@
 			{% for city in cities %}
 			<weather-widget :city-id="{{city}}" @selected="showGraph"></weather-widget>
 			{% endfor %}
+			<add-country-widget></add-country-widget>
 		</div>
 	</div>
 

@@ -34,6 +34,7 @@ body {
 .widget-size {
 	width: 300px; /*dimensions of openweather api's widget nr.5*/
 	height: 232px;
+	overflow: hidden;
 }
 
 .widget-margins {
@@ -49,7 +50,7 @@ body {
 #add-widget-container { /*to make <add-country-widget> same dimensions as <weather-widget>*/
 	width: 300px; /*dimensions of openweather api's widget nr.5*/
 	height: 232px;
-	background-color: ivory;
-	border: 5px solid lightslategray;
+	/*background-color: ivory;*/ /*replaced with bg-light bg-gradient*/
+	border: 2px solid lightskyblue;
 	display: block;
 }
