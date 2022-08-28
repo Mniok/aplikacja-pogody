@@ -44,13 +44,13 @@ app.component('add-country-form', {
             this.curCountry = newCountry;
             var formField = document.getElementById("id_city_id");
             formField.innerHTML = ''; //empty cities selector
-            var citySet = newCities.slice(0, 200); //temmp limiter
+            var citySet = newCities.slice(0, 300); //temmp limiter
             for (let i in citySet) {
                 var newCityId = citySet[i][0];
                 var newCityName = citySet[i][1];
                 formField.innerHTML += '<option value="' + newCityId + '">' + newCityName + '</option>'; //add city to cities selector
             }
-            // !!!(<HTMLInputElement>document.getElementById("submit-add-city-form")).disabled = false;
+            document.getElementById("submit-add-city-form").disabled = false;
             //re-enable button after select field is populated with data
         },
     },
@@ -58,8 +58,8 @@ app.component('add-country-form', {
         console.log("add-cons-form mounted");
         //var countrySelector = (<HTMLInputElement>document.getElementById("id_country"));
         //this.curCountry = countrySelector.value;
-        // !!!(<HTMLInputElement>document.getElementById("id_city_id")).innerHTML = '<option value="0">Wybierz miasto...</option>'
-        // !!!(<HTMLInputElement>document.getElementById("submit-add-city-form")).disabled = true;
+        document.getElementById("id_city_id").innerHTML = '<option value="NONE">Wybierz miasto...</option>';
+        document.getElementById("submit-add-city-form").disabled = true;
         ////// placeholder text until form is updated
         this.updateCitySelector();
         //this.interv = setInterval(
