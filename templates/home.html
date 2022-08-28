@@ -8,7 +8,7 @@
 
 <div id="app" class="w-100 h-100 d-flex flex-row justify-content-between">
 	<div class="left-tab d-flex widget-container">
-		<div class="d-flex flex-wrap">
+		<div class="d-flex flex-wrap justify-content-center">
 			{% for city in cities %}
 			<weather-widget :city-id="{{city}}" @selected="showGraph"></weather-widget>
 			{% endfor %}

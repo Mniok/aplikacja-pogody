@@ -30,14 +30,26 @@ body {
 	overflow-y: auto;
 }
 
-.widget-block {
-	margin: 10px 50px;
-	height: 20%;
-	border-radius: 20% 20%;
+
+.widget-size {
+	width: 300px; /*dimensions of openweather api's widget nr.5*/
+	height: 232px;
 }
 
-.weather-widget {
-	background-color: aquamarine;
-	border: 5px solid aqua;
+.widget-margins {
+	margin: 20px 36px;
+}
 
+.spinner-coontainer {
+	position: absolute;
+	top: 0px;
+	z-index: -1;
+}
+
+#add-widget-container { /*to make <add-country-widget> same dimensions as <weather-widget>*/
+	width: 300px; /*dimensions of openweather api's widget nr.5*/
+	height: 232px;
+	background-color: ivory;
+	border: 5px solid lightslategray;
+	display: block;
 }

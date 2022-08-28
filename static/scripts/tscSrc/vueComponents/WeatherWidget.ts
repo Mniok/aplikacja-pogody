@@ -10,8 +10,15 @@ app.component('weather-widget', {
     },
     template: 
     /*html*/
-    `<div class="d-flex" v-on:click="selectForGraph">
-      <div :id="containerId" :key="cityId"></div>
+    `<div class="d-flex" @:click="selectForGraph">
+      <div class="widget-margins widget-size">
+        <div :id="containerId"></div>
+
+        <div :id="loaderId" class="d-flex justify-content-center align-items-center widget-size spinner-container">
+          <div class="spinner-border text-info"></div>
+        </div>
+
+      </div>
     </div>`,
     data() {
       return {
@@ -40,17 +47,23 @@ app.component('weather-widget', {
           });
       
           //API call is made through widget generator
-          (function(cityId: number) {
+          (function(cityId: number, loaderId: string) {
             var script = document.createElement('script');
             script.async = true;
             script.charset = "utf-8";
             script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
             var s = document.getElementsByTagName('script')[0];
+
             s.parentNode.insertBefore(script, s);
-            
+
+            var loader = document.getElementById(loaderId);
+            console.log(loader);
+            //loader.parentElement.removeChild(loader); //get rid of spinner
+            //removing loader here would remove it before widget loads, instead it's hidden behind it
+
             //console.log("widget for city with id " + this.cityId.toString() + " updated."); //out of scope, function canot access this.cityId
             console.log("widget for city with id " + cityId.toString() + " updated.");
-          })(this.cityId);
+          })(this.cityId, this.loaderId);
         },
 
         selectForGraph() {
@@ -70,6 +83,9 @@ app.component('weather-widget', {
         },
         containerId() {
             return 'openweathermap-widget-5-' + this.cityId.toString();
-        }
+        },
+        loaderId() {
+          return 'loader-' + this.cityId.toString();
+      }
     }
   })
