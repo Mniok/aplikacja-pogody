@@ -21,6 +21,31 @@ app.component('add-city-form', {
         };
     },
     methods: {
+        paginate() {
+            var formField = document.getElementById("id_city_id");
+            if (formField.value == "PREV" && this.pageNr > 0) {
+                this.pageNr--;
+                console.log("pagenr: " + this.pageNr.toString());
+                formField.value = "NONE";
+                this.updateCities();
+            }
+            else if (formField.value == "NEXT") {
+                this.pageNr++;
+                console.log("pagenr: " + this.pageNr.toString());
+                formField.value = "NONE";
+                this.updateCities();
+            }
+        },
+        buttonSafety() {
+            var formField = document.getElementById("id_city_id");
+            var button = document.getElementById("submit-add-city-form");
+            if (formField.value == "NONE" || formField.value == "PREV" || formField.value == "NEXT") {
+                button.disabled = true;
+            }
+            else if (!isNaN(Number(formField.value)) && Number(formField.value) > 0) {
+                button.disabled = false;
+            }
+        },
         updateCities() {
             var formField = document.getElementById("id_city_id");
             formField.innerHTML = ''; //empty cities selector
@@ -36,10 +61,10 @@ app.component('add-city-form', {
                 formField.innerHTML += '<option value="' + newCityId + '">' + newCityName + '</option>'; //add city to cities selector
             }
             if ((this.pageNr + 1) * pageSize < this.citiesList.length) {
-                formField.innerHTML += '<option value="Next">Następna strona...</option>';
+                formField.innerHTML += '<option value="NEXT">Następna strona...</option>';
             }
-            document.getElementById("submit-add-city-form").disabled = false;
-            //re-enable button after select field is populated with data
+            this.buttonSafety();
+            //re-enable button if a valid value is selected
         },
         updateCitySelectorLogic() {
             console.log("updcitysel");
@@ -48,8 +73,10 @@ app.component('add-city-form', {
             var newCities = [];
             //console.log("newc vs curc: " + newCountry + " -- " + this.curCountry);
             //console.log(cityData)
+            this.buttonSafety(); //disable submit button if non-city value selected
             if (newCountry == this.curCountry) {
                 //console.log("ret!")
+                this.paginate();
                 return;
             }
             else if (newCountry == "ALL") {
