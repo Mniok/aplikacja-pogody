@@ -13,23 +13,22 @@
 			{% for city in cities %}
 			<weather-widget :city-id="{{city}}" @selected="showGraph"></weather-widget>
 			{% endfor %}
-			<add-country-widget @add-city="newCityForm"></add-country-widget>
+			<add-city-widget @open-add-city-form="newCityForm"></add-city-widget>
 		</div>
 	</div>
 
 	<div id="right-tab" class="fixed-right">
 
-		<add-country-form v-slot="vm">
+		<add-city-form v-slot="vm">
 			<!-- component inline to inject django form -->
 			<form method="post">
 				{% csrf_token %}
-				<div @mouseover="vm.updateCitySelector" @click="vm.updateCitySelector">
+				<div @mouseover="vm.updateCitySelectorLogic" @click="vm.updateCitySelectorLogic">
 					{{form|crispy}}
 				</div>
 				<button id="submit-add-city-form" type="submit" class="btn btn-success">Dodaj</button>
 			</form>
-			{{vm.curCountry}}
-		</add-country-form>
+		</add-city-form>
 
 	</div>
 </div>
@@ -42,8 +41,8 @@
 <!-- Import Components -->
 <script src="{% static '/scripts/tscBuilt/vueComponents/WeatherWidget.js' %}"></script>
 <script src="{% static '/scripts/tscBuilt/vueComponents/WeatherDetailsGraph.js' %}"></script>
-<script src="{% static '/scripts/tscBuilt/vueComponents/AddCountryWidget.js' %}"></script>
-<script src="{% static '/scripts/tscBuilt/vueComponents/AddCountryForm.js' %}"></script>
+<script src="{% static '/scripts/tscBuilt/vueComponents/AddCityWidget.js' %}"></script>
+<script src="{% static '/scripts/tscBuilt/vueComponents/AddCityForm.js' %}"></script>
 
 
 <!-- Mount App -->

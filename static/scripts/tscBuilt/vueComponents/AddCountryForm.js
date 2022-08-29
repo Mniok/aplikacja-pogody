@@ -5,16 +5,43 @@
     console.log(document.getElementById("id_country").scrollTop)
     }, 1000)
 */
+//document.getElementById("id_country").value = "PL"
+//typeof(document.getElementById("id_city_id").value)   //string, ale:
+//document.getElementById("id_city_id").value > 0       //true
+//document.getElementById("id_city_id").value > 999999999999999 //false
+//gdy value jest 'NONE' -> porównania liczbowe zwracają false
+const pageSize = 200;
 app.component('add-country-form', {
     template: '<slot v-bind="self"></slot>',
     data() {
         return {
             curCountry: String,
-            interv: Number
+            citiesList: [],
+            pageNr: Number
         };
     },
     methods: {
-        updateCitySelector() {
+        updateCities() {
+            var formField = document.getElementById("id_city_id");
+            formField.innerHTML = ''; //empty cities selector
+            formField.innerHTML += '<option value="NONE">Wybierz miasto...</option>';
+            if (this.pageNr > 0) {
+                formField.innerHTML += '<option value="PREV">Poprzednia strona...</option>';
+            }
+            //get cities for current page only (limited page size to prevent crashes)
+            var citySet = this.citiesList.slice(this.pageNr * pageSize, (this.pageNr + 1) * pageSize);
+            for (let i in citySet) {
+                var newCityId = citySet[i][0];
+                var newCityName = citySet[i][1];
+                formField.innerHTML += '<option value="' + newCityId + '">' + newCityName + '</option>'; //add city to cities selector
+            }
+            if ((this.pageNr + 1) * pageSize < this.citiesList.length) {
+                formField.innerHTML += '<option value="Next">Następna strona...</option>';
+            }
+            document.getElementById("submit-add-city-form").disabled = false;
+            //re-enable button after select field is populated with data
+        },
+        updateCitySelectorLogic() {
             console.log("updcitysel");
             var countrySelector = document.getElementById("id_country");
             var newCountry = countrySelector.value;
@@ -28,6 +55,7 @@ app.component('add-country-form', {
             else if (newCountry == "ALL") {
                 console.log("n=c!");
                 newCities = cityData;
+                this.pageNr = 0;
             }
             else {
                 console.log("for!2!");
@@ -38,20 +66,13 @@ app.component('add-country-form', {
                         newCities.push([cityData[i][0], cityData[i][1]]);
                     }
                 }
+                this.pageNr = 0;
             }
             console.log("newCities:");
             console.log(newCities);
             this.curCountry = newCountry;
-            var formField = document.getElementById("id_city_id");
-            formField.innerHTML = ''; //empty cities selector
-            var citySet = newCities.slice(0, 300); //temmp limiter
-            for (let i in citySet) {
-                var newCityId = citySet[i][0];
-                var newCityName = citySet[i][1];
-                formField.innerHTML += '<option value="' + newCityId + '">' + newCityName + '</option>'; //add city to cities selector
-            }
-            document.getElementById("submit-add-city-form").disabled = false;
-            //re-enable button after select field is populated with data
+            this.citiesList = newCities;
+            this.updateCities();
         },
     },
     mounted() {
@@ -61,7 +82,7 @@ app.component('add-country-form', {
         document.getElementById("id_city_id").innerHTML = '<option value="NONE">Wybierz miasto...</option>';
         document.getElementById("submit-add-city-form").disabled = true;
         ////// placeholder text until form is updated
-        this.updateCitySelector();
+        this.updateCitySelectorLogic();
         //this.interv = setInterval(
         //    function () {
         //        this.updateCitySelector()
