@@ -25,7 +25,12 @@ def home(request):
             if (len(duplicates) == 0): #prevents saving duplicates
                 widgetNrs = ObservedCity.objects.filter(user_id=obsCity.user_id)
                 widgetNrs = widgetNrs.values_list('widget_nr', flat=True)
-                obsCity.widget_nr = max(widgetNrs) +1 #add last
+                
+                if (len(widgetNrs) > 0):
+                    obsCity.widget_nr = max(widgetNrs) +1 #add last
+                else:
+                    obsCity.widget_nr = 1
+                    
                 obsCity.save()
             return redirect('/home')
     else:
