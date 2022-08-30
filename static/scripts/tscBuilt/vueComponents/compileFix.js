@@ -8,3 +8,8 @@ class Vue {
 //this stops the compiler from aborting compilation, and does nothing else.
 //the real Vue.createapp is imported in home.html and works as intended.
 var cityData;
+class Chart {
+    constructor(arg1, arg2) { }
+}
+;
+//real Chart is imported from Chart.js

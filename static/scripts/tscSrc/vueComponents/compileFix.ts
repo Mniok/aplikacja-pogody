@@ -9,3 +9,8 @@ class Vue {
 //the real Vue.createapp is imported in home.html and works as intended.
 
 var cityData: any;
+
+class Chart{
+    constructor(arg1: any, arg2: any){}
+};
+//real Chart is imported from Chart.js
