@@ -32,13 +32,13 @@ app.component('add-city-form', {
             
             if (formField.value == "PREV" && this.pageNr > 0) {
                 this.pageNr--;
-                console.log("pagenr: " + this.pageNr.toString());
+                //console.log("pagenr: " + this.pageNr.toString());
                 formField.value = "NONE";
                 this.updateCities();
             }
             else if (formField.value == "NEXT") {
                 this.pageNr++;
-                console.log("pagenr: " + this.pageNr.toString());
+                //console.log("pagenr: " + this.pageNr.toString());
                 formField.value = "NONE";
                 this.updateCities();
             }
@@ -82,7 +82,7 @@ app.component('add-city-form', {
         },
 
         updateCitySelectorLogic() {
-            console.log("updcitysel")
+            //console.log("updcitysel")
             var countrySelector = (<HTMLInputElement>document.getElementById("id_country"));
             var newCountry: string = countrySelector.value
             var newCities = [];
@@ -123,7 +123,7 @@ app.component('add-city-form', {
     },
 
     mounted() {
-        console.log("add-city-form mounted");
+        //console.log("add-city-form mounted");
         //var countrySelector = (<HTMLInputElement>document.getElementById("id_country"));
         //this.curCountry = countrySelector.value;
 

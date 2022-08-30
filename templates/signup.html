@@ -2,9 +2,15 @@
 {% block title %}Login{% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{form|crispy}}
-    <button type="submit" class="btn btn-success">Register</button>
-</form>
+<div class="widget-container">
+    <form method="post">
+        <div class="container-fluid d-flex justify-content-center">
+            <div id="auth-form-container">
+                {% csrf_token %}
+                {{form|crispy}}
+                <button type="submit" class="btn btn-success">Załóż konto</button>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}

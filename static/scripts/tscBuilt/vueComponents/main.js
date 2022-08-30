@@ -17,18 +17,13 @@ const app = Vue.createApp({
             //this.unload();
             //console.log(this.rightTabModule + this.graphCityId);
             this.rightTabModule = "graph";
-            console.log(this.rightTabModule + this.graphCityId);
+            //console.log(this.rightTabModule + this.graphCityId);
         },
         newCityForm() {
             this.rightTabModule = "none";
             this.unload();
             this.rightTabModule = "form";
-            console.log(this.rightTabModule);
+            //console.log(this.rightTabModule);
         }
-    },
-    beforeMount() {
-        console.log("app mounted!");
-        console.log(app);
-        console.log(this.$refs.weatherwidget);
     }
 });

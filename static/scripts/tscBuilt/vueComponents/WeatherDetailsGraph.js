@@ -38,7 +38,7 @@ app.component('weather-details-graph', {
     },
     methods: {
         async fetchData() {
-            console.log("fetchdata...");
+            //console.log("fetchdata...");
             var apiData = await fetchForecast(this.cityId);
             var temp = [];
             var hum = [];
@@ -128,23 +128,21 @@ app.component('weather-details-graph', {
         }
     },
     async created() {
-        console.log("created...");
+        //console.log("created...");
         this.chartCurrentCity = this.cityId;
         await this.fetchData();
         //this.apiData = await fetchForecast(this.cityId);
-        console.log(this.apiData);
+        //console.log(this.apiData);
         this.drawGraphs();
     },
     async beforeUpdate() {
-        console.log("beforeUpdate... " + this.cityId + ' == ? != ' + this.chartCurrentCity);
+        //console.log("beforeUpdate... " + this.cityId + ' == ? != ' + this.chartCurrentCity)
         if (this.cityId != this.chartCurrentCity) {
             this.chartCurrentCity = this.cityId;
             await this.fetchData();
             this.drawGraphs();
         }
-        else {
-            console.log("update aborted.");
-        }
+        //else {console.log("update aborted.")}
         //console.log(this.apiData);
         //console.log(this.temperatureList);
         //var labels = ['january', 'february', 'march'];
@@ -152,8 +150,5 @@ app.component('weather-details-graph', {
         //console.log(Array(this.temperatureList));
         //console.log(Array(this.humidityList));
         //console.log(Array(this.timeList));
-    },
-    async updated() {
-        console.log("updated...");
     },
 });

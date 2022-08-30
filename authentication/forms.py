@@ -29,8 +29,6 @@ class RegisterForm(UserCreationForm):
     #       Your password can’t be entirely numeric.
     password2 = forms.CharField(label="Potwierdź hasło", required=True, widget=forms.PasswordInput,
                                 help_text="Powtórz to samo hasło co wcześniej, dla weryfikacji.")
-    tos_accepted = forms.BooleanField(label=mark_safe('Akceptuję <a href="/tos">regulamin serwisu</a>'),
-                        required=True) #nie da się zarejestrować bez akceptacji
     
     def clean_email2(self):
         email = self.cleaned_data.get('email')
@@ -44,7 +42,7 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ["username", "email", "email2", "password1", "password2", "tos_accepted"]
+        fields = ["username", "email", "email2", "password1", "password2"]
 
 
 

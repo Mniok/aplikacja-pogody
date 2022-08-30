@@ -1,9 +1,8 @@
-django==4.0.4
+django>=4.0
 django-crispy-forms==1.14.0
-psycopg2==2.9.3
+psycopg2>=2.0
 crispy-bootstrap5
 django-extensions
-gunicorn
-dj-database-url
-whitenoise
-django-js-variable-injector
+gunicorn>=20.0
+dj-database-url>=1.0
+whitenoise>=6.0
