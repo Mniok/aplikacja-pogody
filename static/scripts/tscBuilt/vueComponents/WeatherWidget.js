@@ -35,6 +35,10 @@ app.component('weather-widget', {
         };
     },
     methods: {
+        clearWidget() {
+            var parent = document.getElementById(this.containerId);
+            parent.innerHTML = '';
+        },
         update() {
             window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
             //init parameters for API call
@@ -46,6 +50,7 @@ app.component('weather-widget', {
                 lang: 'pl',
                 containerid: this.containerId,
             });
+            this.clearWidget();
             //API call is made through widget generator
             (function (cityId, loaderId) {
                 var script = document.createElement('script');
