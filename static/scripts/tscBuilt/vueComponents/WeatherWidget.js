@@ -5,6 +5,10 @@ app.component('weather-widget', {
         cityId: {
             type: Number,
             required: true
+        },
+        refreshInterval: {
+            type: Number,
+            required: true
         }
     },
     template: 
@@ -64,7 +68,8 @@ app.component('weather-widget', {
     },
     mounted() {
         //console.log("weather-widget for city id " + this.cityId.toString() + " mounted.")
-        this.update();
+        //this.update();
+        setInterval(this.update, this.refreshInterval * 1000);
         //lifecycle hook
     },
     computed: {

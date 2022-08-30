@@ -15,7 +15,7 @@
 	<div id="left-tab" class="d-flex widget-container">
 		<div class="d-flex flex-wrap justify-content-center">
 			{% for city in cities %}
-			<weather-widget :city-id="{{city}}" @selected="showGraph"></weather-widget>
+			<weather-widget ref="weatherwidget" :city-id="{{city}}" :refresh-interval="apiCallDelay" @selected="showGraph"></weather-widget>
 			{% endfor %}
 			<add-city-widget @open-add-city-form="newCityForm"></add-city-widget>
 		</div>

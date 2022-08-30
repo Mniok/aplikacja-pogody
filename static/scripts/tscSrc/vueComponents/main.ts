@@ -28,5 +28,10 @@ const app = Vue.createApp({
             this.rightTabModule = "form";
             console.log(this.rightTabModule);
         }
+    },
+    beforeMount() {
+        console.log("app mounted!");
+        console.log(app);
+        console.log(this.$refs.weatherwidget);
     }
 })
