@@ -11,6 +11,7 @@ class Vue {
 var cityData: any;
 
 class Chart{
-    constructor(arg1: any, arg2: any){}
+    constructor(arg1: any, arg2: any){};
+    destroy(){};
 };
 //real Chart is imported from Chart.js

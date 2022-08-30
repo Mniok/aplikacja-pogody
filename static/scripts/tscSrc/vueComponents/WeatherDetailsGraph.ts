@@ -13,16 +13,19 @@ app.component('weather-details-graph', {
     template: 
     /*html*/
     `<div id="graphs-container" class="d-flex flex-column">
-      <div class="d-flex">
-        <p class="form-label text-center">Wykresy temperatury i wilgotności<br>dla {{cityName}}</p><br>
-      </div>
+        <div class="d-flex">
+            <p class="form-label text-center container-fluid">Wykresy temperatury i wilgotności</p>
+        </div>
+        <div class="d-flex">
+            <p class="form-label text-center container-fluid">dla {{cityName}}</p><br>
+        </div>
     
-      <div class="d-flex">
-        <canvas id="temperatureChart"></canvas>
-      </div><br>
-      <div class="d-flex">
-        <canvas id="humidityChart"></canvas>
-      </div>
+        <div id="temp-chart-container" class="d-flex">
+            <canvas id="temperatureChart"></canvas>
+        </div><br>
+        <div id="hum-chart-container" class="d-flex">
+            <canvas id="humidityChart"></canvas>
+        </div>
     </div>`,
 
     data() {
@@ -30,7 +33,11 @@ app.component('weather-details-graph', {
             cityName: String,
             temperatureList: [],
             humidityList: [],
-            timeList: []
+            timeList: [],
+            tChartHandle: {},
+            hChartHandle: {},
+            chartCurrentCity: Number,
+            chartsDrawn: false
         }
     },
 
@@ -53,11 +60,31 @@ app.component('weather-details-graph', {
             this.humidityList = hum;
             this.timeList = time;
         },
+        /*resetGraphs() {
+            var tChContainer = document.getElementById("temperatureChart");
+            var hChContainer = document.getElementById("humidityChart");
+
+            tChContainer.innerHTML = ''
+            tChContainer.innerHTML = '<canvas id="temperatureChart"></canvas>'
+            hChContainer.innerHTML = ''
+            hChContainer.innerHTML = '<canvas id="humidityChart"></canvas>'
+
+        },*/
         drawGraphs() {
+            if (this.chartsDrawn) {
+                //make room for new charts
+                this.tChartHandle.destroy();
+                //console.log(this.tChartHandle);
+                this.hChartHandle.destroy();
+                //this.chartsDrawn = false;
+            }
+            //this.resetGraphs(); //to make room for new charts
+            
+
             const tempGraphData = {
                 labels: this.timeList,
                 datasets: [{
-                    label: 'Temperatura',
+                    label: 'Temperatura [°C]',
                     backgroundColor: "coral",
                     borderColor: "coral",
                     data: this.temperatureList
@@ -67,9 +94,10 @@ app.component('weather-details-graph', {
             const humidityGraphData = {
                 labels: this.timeList,
                 datasets: [{
-                    label: 'Wilgotność',
+                    label: 'Wilgotność [%]',
                     backgroundColor: "dodgerblue",
                     borderColor: "dodgerblue",
+                    color: "ivory",
                     data: this.humidityList
                 }]
             };
@@ -86,20 +114,46 @@ app.component('weather-details-graph', {
                 options: {}
             };
 
+            this.chartsDrawn = true;
+            const tempCharCanvas = <HTMLCanvasElement>document.getElementById("temperatureChart");
+            //tempCharCanvas.getContext('2d').clearRect(0, 0, tempCharCanvas.clientWidth, tempCharCanvas.clientHeight);
+            //if (this.tChartHandle != {}) this.tChartHandle.destroy();
             const tempChart = new Chart(
-                document.getElementById("temperatureChart"),
+                tempCharCanvas,
                 tempGraphConfig
             );
+            this.tChartHandle = tempChart;
+            //console.log("tempchart handle:");
+            //this.tChartHandle = tempChart;
+            //console.log(this.tChartHandle);
+            //tempChart.destroy();
 
+            const humCharCanvas = <HTMLCanvasElement>document.getElementById("humidityChart");
+            //humCharCanvas.getContext('2d').clearRect(0, 0, humCharCanvas.clientWidth, humCharCanvas.clientHeight);
+            //if (this.hChartHandle != {}) this.hChartHandle.destroy();
             const humChart = new Chart(
-                document.getElementById("humidityChart"),
+                humCharCanvas,
                 humGraphConfig
             );
+            this.hChartHandle = humChart;
+            //this.hChartHandle.destroy();
+            //console.log(this.hChartHandle);
+
+            //this.chartsDrawn = true;
+
+            /*this.$nextTick(() => {
+                this.$nextTick(() => {
+                    tempChart.destroy();
+                    humChart.destroy();
+                });
+            });*/
+            
         }
     },
 
     async created() {
         console.log("created...");
+        this.chartCurrentCity = this.cityId;
         await this.fetchData();
         //this.apiData = await fetchForecast(this.cityId);
         console.log(this.apiData);
@@ -107,8 +161,14 @@ app.component('weather-details-graph', {
     },
 
     async beforeUpdate() {
-        console.log("beforeUpdate... " + this.cityId)
-        await this.fetchData();
+        console.log("beforeUpdate... " + this.cityId + ' == ? != ' + this.chartCurrentCity)
+        if(this.cityId != this.chartCurrentCity) {
+            this.chartCurrentCity = this.cityId;
+            await this.fetchData();
+            this.drawGraphs();
+        }
+        else {console.log("update aborted.")}
+
         //console.log(this.apiData);
         //console.log(this.temperatureList);
 
@@ -117,7 +177,7 @@ app.component('weather-details-graph', {
         //console.log(Array(this.temperatureList));
         //console.log(Array(this.humidityList));
         //console.log(Array(this.timeList));
-        this.drawGraphs();
+        
     },
 
     async updated() {
