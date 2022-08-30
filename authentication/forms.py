@@ -63,8 +63,8 @@ class cityIdTestForm(forms.Form):
 
     city_id = forms.ChoiceField(label="Miasto:",
                                 choices = (
-                                    ("1", "1"),
-                                    ("2", "2")
+                                    ("1", "Wybierz miasto..."),
+                                    ("2", " ")
                                 ), #required to render, replaced at runtime according to selected country
                                 required=True)
 

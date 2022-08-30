@@ -136,7 +136,7 @@ app.component('add-city-form', {
         //    function () {
         //        this.updateCitySelector()
         //    }, 2000);
-      },
+    },
 
     computed: {
         self() {

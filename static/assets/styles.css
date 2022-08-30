@@ -16,9 +16,13 @@ body {
 }
 
 #right-tab {
-	background-color: #a2a2f2;
 	height: 100%;
 	width: var(--right-tab-width);
+	background-color: #a2a2f2;
+}
+
+.tab-padding {
+	padding: 20px 18px;
 }
 
 #left-tab {
@@ -53,4 +57,9 @@ body {
 	/*background-color: ivory;*/ /*replaced with bg-light bg-gradient*/
 	border: 2px solid lightskyblue;
 	display: block;
+}
+
+.form-label {
+	font-weight: bold;
+	color: ivory;
 }

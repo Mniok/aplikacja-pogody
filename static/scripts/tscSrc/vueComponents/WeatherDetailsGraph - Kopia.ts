@@ -12,21 +12,19 @@ app.component('weather-details-graph', {
     
     template: 
     /*html*/
-    `<div id="graphs-container" class="d-flex">
+    `<div id="graphs-container" class="d-flex" @click="dummy">
       <p>Wykresy dla id: {{cityId}}</p>
     </div>`,
 
     methods: {
-        async fetchData() {
-            console.log("fetchdata...");
-            this.apiData = await fetchForecast(this.cityId);
+        dummy() {
+            console.log("dummy...");
         }
     },
 
     async created() {
         console.log("created...");
-        await this.fetchData();
-        //this.apiData = await fetchForecast(this.cityId);
+        this.apiData = await fetchForecast(this.cityId);
         console.log(this.apiData);
     },
 
@@ -37,12 +35,6 @@ app.component('weather-details-graph', {
     async mounted() {
         console.log("mounted...");
         //console.log(data);
-    },
-
-    async beforeUpdate() {
-        console.log("beforeUPD..." + this.cityId)
-        await this.fetchData();
-        console.log(this.apiData);
     },
 
     async updated() {

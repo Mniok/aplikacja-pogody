@@ -7,6 +7,10 @@
 <!-- Import Vue.js -->
 <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
 
+<!-- Import Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 <div id="app" class="w-100 h-100 d-flex flex-row justify-content-between">
 	<div id="left-tab" class="d-flex widget-container">
 		<div class="d-flex flex-wrap justify-content-center">
@@ -17,9 +21,11 @@
 		</div>
 	</div>
 
-	<div id="right-tab" class="fixed-right">
+	<div id="right-tab" class="fixed-right tab-padding">
 
-		<add-city-form v-slot="vm">
+		<weather-details-graph v-if="rightTabModule == 'graph'" :city-id="graphCityId"></weather-details-graph>
+
+		<add-city-form v-if="rightTabModule == 'form'" v-slot="vm">
 			<!-- component inline to inject django form -->
 			<form method="post">
 				{% csrf_token %}
@@ -29,6 +35,9 @@
 				<button id="submit-add-city-form" type="submit" class="btn btn-success">Dodaj</button>
 			</form>
 		</add-city-form>
+		
+
+	
 
 	</div>
 </div>
@@ -37,6 +46,9 @@
 
 <!-- Import App -->
 <script src="{% static '/scripts/tscBuilt/vueComponents/main.js' %}"></script>
+
+<!-- Import API call handling script -->
+<script src="{% static '/scripts/tscBuilt/apiFetch.js' %}"></script>
 
 <!-- Import Components -->
 <script src="{% static '/scripts/tscBuilt/vueComponents/WeatherWidget.js' %}"></script>

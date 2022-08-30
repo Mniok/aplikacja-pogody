@@ -4,14 +4,14 @@
 
 //console test:
 async function fetchWeather(cityId: number) {
-    var apicall = fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityId.toString() + '&lang=pl&appid=c2eb1330d5a3ce1a68cb382df5091a4b&units=metric')
+    var apicall = fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityId.toString() + '&lang=pl&appid=c2eb1330d5a3ce1a68cb382df5091a4b&units=metric');
     //po id miasta, jezyk polski, metric system (stopnie CSelsjusza)
     //z wraca promise bo jest async i czeka na odpowiedz
 
-    var response = await apicall
+    var response = await apicall;
     //juz nie promise a konkretny obiekt
 
-    var data = await response.json()
+    var data = await response.json();
     //odczytuje json ze strumienia
 
     //console.log(data.name)
@@ -23,12 +23,26 @@ async function fetchWeather(cityId: number) {
     //console.log(resultStr);
     //const elem = document.getElementById("result")
     //elem.innerHTML = resultStr
+
+    return data;
 }
 
 /*
 apicall = fetch('https://api.openweathermap.org/data/2.5/forecast?id=524901&lang=pl&appid=c2eb1330d5a3ce1a68cb382df5091a4b&units=metric')
 //forecast - 40 pomiarów (5 dni co 3h)
 */
+
+async function fetchForecast(cityId: number) {
+    var params = 'id=' + cityId.toString() + '&lang=pl&appid=c2eb1330d5a3ce1a68cb382df5091a4b&units=metric';
+    var apiLink = 'https://api.openweathermap.org/data/2.5/forecast?' + params;
+
+    var apiCall = fetch(apiLink);
+    var response = await apiCall;
+    var data = await response.json();
+
+  return data;
+
+}
 
 
 
